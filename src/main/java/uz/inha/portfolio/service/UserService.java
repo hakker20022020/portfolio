@@ -1,11 +1,9 @@
 package uz.inha.portfolio.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 import uz.inha.portfolio.model.User;
 import uz.inha.portfolio.repository.UserRepository;
 
@@ -49,6 +47,16 @@ public class UserService {
         if (optionalUser.isPresent())
             userRepository.deleteById(id);
         return false;
+    }
+
+
+    // Parot bovotgan joylari
+    public User login(@RequestParam(name = "userName") String userName,
+                      @RequestParam(name = "password") String password, Model model){
+        Optional<User> user = userRepository.findByUserNameAndPassword(userName, password);
+        model.addAttribute("user", user);
+
+        return null;
     }
 
 }
