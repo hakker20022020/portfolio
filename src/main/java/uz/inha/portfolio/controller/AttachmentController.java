@@ -1,10 +1,15 @@
 package uz.inha.portfolio.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import uz.inha.portfolio.model.Attachment;
+import uz.inha.portfolio.model.AttachmentContent;
+import uz.inha.portfolio.repository.AttachmentContentRepository;
+import uz.inha.portfolio.repository.AttachmentRepository;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
@@ -18,13 +23,12 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/attachment")
+@RequiredArgsConstructor
 public class AttachmentController {
 
-    @Autowired
-    AttachmentRepository attachmentRepository;
+    private AttachmentRepository attachmentRepository;
 
-    @Autowired
-    AttachmentContentRepository attachmentContentRepository;
+    private AttachmentContentRepository attachmentContentRepository;
 
     public static final String uploadDirectory = "yuklanganlar";
 
