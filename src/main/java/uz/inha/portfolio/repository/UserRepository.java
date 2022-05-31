@@ -1,9 +1,14 @@
 package uz.inha.portfolio.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import uz.inha.portfolio.model.User;
+import uz.inha.portfolio.model.Users;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<Users, Integer> {
+    Long countById(Integer id);
+
+    Optional<Users> findByPhone(String phoneNumber);
+
+    Optional<Users> findByPhoneAndPassword(String phone, String password);
 }
