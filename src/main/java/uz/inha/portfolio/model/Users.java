@@ -21,6 +21,12 @@ public class Users {
     @Column(unique = true)
     private String phone;
     private String password;
-    private Boolean isAdmin=false;
+    private Boolean isAdmin = false;
+
+    @OneToOne
+    private Attachment attachmentPhoto;
+
+    @OneToOne
+    private Attachment attachmentResume;
 
 }

@@ -22,4 +22,7 @@ public class AttachmentContent {
 
     @OneToOne
     private Attachment attachment;
+
+    @OneToOne
+    private Users user;
 }

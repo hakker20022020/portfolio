@@ -1,7 +1,6 @@
 package uz.inha.portfolio.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,14 +25,14 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AttachmentController {
 
-    private AttachmentRepository attachmentRepository;
+    private final AttachmentRepository attachmentRepository;
 
-    private AttachmentContentRepository attachmentContentRepository;
+    private final AttachmentContentRepository attachmentContentRepository;
 
     public static final String uploadDirectory = "yuklanganlar";
 
     @PostMapping("/uploadDb")
-    public String uploadFileToDb(MultipartHttpServletRequest request) throws IOException {
+    public String uploadFileToDb(/*@PathVariable Integer id,*/ MultipartHttpServletRequest request) throws IOException {
         Iterator<String> fileNames = request.getFileNames();
         MultipartFile file = request.getFile(fileNames.next());
 
@@ -47,8 +46,10 @@ public class AttachmentController {
             attachment.setFileOriginalName(originalFilename);
             Attachment saveAttachment = attachmentRepository.save(attachment);
 
+            //User user = new User();
             AttachmentContent attachmentContent = new AttachmentContent();
             attachmentContent.setBytes(file.getBytes());
+            //attachmentContent.setId(user.getId());
             attachmentContent.setAttachment(saveAttachment);
             attachmentContentRepository.save(attachmentContent);
 
