@@ -9,6 +9,7 @@ import uz.inha.portfolio.model.Attachment;
 import uz.inha.portfolio.model.AttachmentContent;
 import uz.inha.portfolio.repository.AttachmentContentRepository;
 import uz.inha.portfolio.repository.AttachmentRepository;
+import uz.inha.portfolio.repository.UserRepository;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
@@ -17,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,10 +31,12 @@ public class AttachmentController {
 
     private final AttachmentContentRepository attachmentContentRepository;
 
+    private final UserRepository userRepository;
+
     public static final String uploadDirectory = "yuklanganlar";
 
-    @PostMapping("/uploadDb")
-    public String uploadFileToDb(/*@PathVariable Integer id,*/ MultipartHttpServletRequest request) throws IOException {
+    @PostMapping("/uploadDb/{id}")
+    public String uploadFileToDb(@PathVariable Integer id, MultipartHttpServletRequest request) throws IOException {
         Iterator<String> fileNames = request.getFileNames();
         MultipartFile file = request.getFile(fileNames.next());
 
@@ -44,12 +48,11 @@ public class AttachmentController {
             attachment.setContentType(contentType);
             attachment.setSize(size);
             attachment.setFileOriginalName(originalFilename);
+            attachment.setUsers(userRepository.findById(id).get());
             Attachment saveAttachment = attachmentRepository.save(attachment);
 
-            //User user = new User();
             AttachmentContent attachmentContent = new AttachmentContent();
             attachmentContent.setBytes(file.getBytes());
-            //attachmentContent.setId(user.getId());
             attachmentContent.setAttachment(saveAttachment);
             attachmentContentRepository.save(attachmentContent);
 
@@ -58,6 +61,12 @@ public class AttachmentController {
         }
 
         return "exception";
+    }
+
+    @GetMapping("/getFileByUserId/{id}")
+    public void getFileByUserId(@PathVariable Integer id, HttpServletResponse response) throws IOException {
+        List<Attachment> attachmentList = attachmentRepository.findAllByUsersId(id);
+        getFile(attachmentList.get(0).getId(), response);
     }
 
     @PostMapping("/uploadSystem")
@@ -109,7 +118,9 @@ public class AttachmentController {
 
     @GetMapping("getFromFileSystem/{id}")
     public void getFromFileSystem(@PathVariable Integer id, HttpServletResponse response) throws IOException {
+
         Optional<Attachment> byId = attachmentRepository.findById(id);
+
         if (byId.isPresent()) {
             Attachment attachment = byId.get();
             response.setHeader("Content-Disposition", "attachment; file=\"" + attachment.getFileOriginalName() + "\"");

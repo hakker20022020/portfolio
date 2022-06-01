@@ -69,8 +69,8 @@ public class UserService {
         users.setEmail(userDto.getEmail());
         users.setPassword(userDto.getPassword());
 
-        users.setAttachmentResume((Attachment) userDto.getResumeId());
-        users.setAttachmentPhoto((Attachment) userDto.getResumeId());
+//        users.setAttachmentResume((Attachment) userDto.getResumeId());
+//        users.setAttachmentPhoto((Attachment) userDto.getResumeId());
 
 //        Optional<Attachment> optional = attachmentRepository.findById(userDto.getProfilePhotoId());
 //        if (optional.isEmpty()) users.setAttachmentPhoto(null);
@@ -79,6 +79,8 @@ public class UserService {
 //        Optional<Attachment> attachmentOptional = attachmentRepository.findById(userDto.getResumeId());
 //        if (attachmentOptional.isEmpty()) users.setAttachmentPhoto(null);
 //        users.setAttachmentResume(attachmentOptional.get());
+
+
 
         userRepository.save(users);
         /*if (!users.getPhone().equals(userDto.getPhone())){

@@ -27,4 +27,8 @@ public class Attachment {
     //bu sistemaga saqlash uchun kerak bo'ladi
     private String name;
 
+    @ManyToOne
+    private Users users;
+
+
 }

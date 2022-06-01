@@ -11,22 +11,23 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 public class Users {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String lastName;
+
     private String firstName;
+
     @Column(unique = true)
     private String email;
+
     @Column(unique = true)
     private String phone;
+
     private String password;
+
     private Boolean isAdmin = false;
-
-    @OneToOne
-    private Attachment attachmentPhoto;
-
-    @OneToOne
-    private Attachment attachmentResume;
 
 }
