@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AttachmentRepository extends JpaRepository<Attachment, Integer> {
-    List<Attachment> findAllByUsersId(Integer id);
+    List<Attachment> findAllByUserId(Integer id);
 }
