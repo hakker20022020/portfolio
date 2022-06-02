@@ -5,12 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
+@Entity(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +32,11 @@ public class Users {
 
     private Boolean isAdmin = false;
 
+    @OneToMany(mappedBy = "user")
+    private List<Attachment> profilePhoto = new ArrayList<>();
+
+
+    public void addAttachment(Attachment attachment) {
+        profilePhoto.add(attachment);
+    }
 }

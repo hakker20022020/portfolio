@@ -15,6 +15,5 @@ public class UserDto {
     private String phone;
     private String password;
     private Boolean isAdmin=false;
-    private MultipartFile profilePhotoId;
-    private MultipartFile resumeId;
+
 }
