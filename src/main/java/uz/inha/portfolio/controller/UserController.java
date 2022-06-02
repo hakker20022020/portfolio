@@ -55,14 +55,16 @@ public class UserController {
     @PostMapping("/save")
     public String save(UserDto userDto, @RequestParam("resume") MultipartFile resume,
                        @RequestParam("photo") MultipartFile photo) throws IOException {
-        userService.save(userDto, resume, photo);
-        return "user_page";
+        User savedUser = userService.save(userDto, resume, photo);
+        return "redirect:/user/profile/"+savedUser.getId();
     }
 
     @GetMapping("/profile/{id}")
-    public String profile(@PathVariable Integer id, User user){
-        userService.getById(id);
-        return "user/profile";
+    public String profile(@PathVariable Integer id, User user,Model model){
+        User userById = userService.getById(id);
+        model.addAttribute("user",userById);
+        return "profile-user";
     }
+
 
 }

@@ -19,14 +19,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
-
     private final UserRepository userRepository;
 
     private final AttachmentRepository attachmentRepository;
 
     private final AttachmentContentRepository attachmentContentRepository;
-
-//    private final Attachment attachment;
 
     public User hasPhone(String phone) {
         Optional<User> byPhone = userRepository.findByPhone(phone);
@@ -69,7 +66,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public void save(UserDto userDto, MultipartFile resume, MultipartFile photo) throws IOException {
+    public User save(UserDto userDto, MultipartFile resume, MultipartFile photo) throws IOException {
 
         User user = new User();
         user.setFirstName(userDto.getFirstName());
@@ -104,7 +101,7 @@ public class UserService {
         attachmentContent.setBytes(photo.getBytes());
         attachmentContentRepository.save(attachmentContent);
         user.addAttachment(attachment);
-        userRepository.save(user);
+        return userRepository.save(user);
 
     }
 }
