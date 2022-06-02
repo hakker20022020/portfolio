@@ -1,16 +1,16 @@
 package uz.inha.portfolio.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
+@Builder
 @Entity(name = "attachment")
 public class Attachment {
 
@@ -25,10 +25,14 @@ public class Attachment {
     private String contentType;
 
     //bu sistemaga saqlash uchun kerak bo'ladi
-    private String name;
+//    private String name;
 
     @ManyToOne
-    private Users users;
+    private User user;
 
-
+    public Attachment(String fileOriginalName, long size, String contentType) {
+        this.fileOriginalName = fileOriginalName;
+        this.size = size;
+        this.contentType = contentType;
+    }
 }

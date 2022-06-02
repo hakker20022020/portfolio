@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,6 +22,8 @@ public class AttachmentContent {
     @OneToOne
     private Attachment attachment;
 
-    @OneToOne
-    private Users user;
+    public AttachmentContent(byte[] bytes, Attachment attachment) {
+        this.bytes = bytes;
+        this.attachment = attachment;
+    }
 }
