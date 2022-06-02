@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Manage Users</title>
@@ -34,7 +34,7 @@
                     <td>[[${user.password }]]</td>
                     <td>[[${user.phone }]]</td>
                     <td>[[${user.isAdmin }]]</td>
-                    <td>[[${user.firstName}]]</td>
+                    <td></td>
                     <td>
                         <a class="h4 mr-3" th:href="@{'/user/edit/' + ${user.id}}">Edit</a>
                         <a class="h4" th:href="@{'/user/delete/' + ${user.id}}">Delete</a>
