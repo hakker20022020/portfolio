@@ -20,6 +20,7 @@
                 <th>Password</th>
                 <th>Phone Number</th>
                 <th>Is Admin</th>
+                <th>First Name</th>
                 <th></th>
             </tr>
             </thead>
@@ -33,6 +34,7 @@
                     <td>[[${user.password }]]</td>
                     <td>[[${user.phone }]]</td>
                     <td>[[${user.isAdmin }]]</td>
+                    <td>[[${user.firstName}]]</td>
                     <td>
                         <a class="h4 mr-3" th:href="@{'/user/edit/' + ${user.id}}">Edit</a>
                         <a class="h4" th:href="@{'/user/delete/' + ${user.id}}">Delete</a>
